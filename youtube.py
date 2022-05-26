@@ -15,20 +15,19 @@ print("Length of video: ", yt.length)
 print("Rating of video: ", yt.rating)
 if isAudio == "y" or isAudio == "Y":
     video = yt.streams.filter(only_audio=True).first()
-    destination = './downloads/'
+    destination = './downloads/audio/'
     # # download the file
     out_file = video.download(output_path=destination)
-    print(out_file)
-    #
     # save the file
     base, ext = os.path.splitext(out_file)
     new_file = base + '.mp3'
     os.rename(out_file, new_file)
 else:
     video = yt.streams.get_highest_resolution()
+    destination = './downloads/video/'
     # # result of success
     print(video.title + " has been successfully downloaded.")
     # Starting download
     print("Downloading...")
-    video.download()
+    video.download(output_path=destination)
     print("Download completed!!")
